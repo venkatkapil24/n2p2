@@ -62,7 +62,6 @@ CLEAN_APP=$(patsubst %, clean-%, $(APP))
 	libnnptrain \
 	libnnpif \
 	lammps-nnp \
-	lammps-nnp-py \
 	pynnp \
 	clean-doc \
 	clean-doc-sphinx \
@@ -80,7 +79,6 @@ all: libnnp \
      libnnptrain \
      libnnpif \
 	   lammps-nnp \
-	   lammps-nnp-py \
      all-app
 
 clean: clean-libnnp \
