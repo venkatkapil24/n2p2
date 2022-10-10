@@ -29,9 +29,9 @@ include $(PROJECT_DIR)/src/makefile.$(COMP)
 ###############################################################################
 # RULES
 ###############################################################################
-.PHONY: all lammps-nnp clean-lammps-nnp clean-lammps-nnp-keep-file
+.PHONY: all lammps-nnp lammps-nnp-py clean-lammps-nnp clean-lammps-nnp-keep-file
 
-all: lammps-nnp
+all: lammps-nnp lammps-nnp-py
 
 clean: clean-lammps-nnp
 
@@ -55,8 +55,11 @@ lammps-nnp:
 		sed -i.bak "/^LINKFLAGS =/ s/$$/ $(LAMMPS_DEBUG) $(PROJECT_TEST)/" lammps-nnp/src/MAKE/Makefile.mpi; \
 	fi
 	@rm lammps-nnp/src/MAKE/Makefile.mpi.bak
-	cd lammps-nnp/src/ $(MAKE) yes-CLASS2 && $(MAKE) yes-KSPACE && $(MAKE) yes-MANYBODY && $(MAKE) yes-MISC && $(MAKE) yes-MOLECULE && $(MAKE) yes-REPLICA && $(MAKE) yes-RIGID && $(MAKE) yes-USER-MISC && $(MAKE) yes-USER-NNP && $(MAKE) mpi
+	cd lammps-nnp/src/ $(MAKE) yes-CLASS2 && $(MAKE) yes-KSPACE && $(MAKE) yes-MANYBODY && $(MAKE) yes-MISC && $(MAKE) yes-MOLECULE && $(MAKE) yes-REPLICA && $(MAKE) yes-RIGID && $(MAKE) yes-USER-MISC && $(MAKE) yes-USER-NNP && $(MAKE) mpi && $(MAKE) mode=shared mpi
 	cp lammps-nnp/src/lmp_mpi $(PROJECT_BIN)/
+
+lammps-nnp-py:
+	cd lammps-nnp/src/ $(MAKE) install-python
 
 clean-lammps-nnp:
 	$(RM) -r lammps-nnp
